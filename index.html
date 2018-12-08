@@ -1,0 +1,581 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>DOM events</title>
+		<base target="_blank">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<style>
+			.reveal section img { 
+				background: none; 
+				border: none; 
+				box-shadow: none; 
+			}
+
+			.reveal section pre { 
+				background: none; 
+				border: none; 
+				box-shadow: none;
+			}
+
+			.reveal section code {
+				tab-size: 2;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+		
+			<div class="slides">
+				<section>
+					<h1>Dom Events</h1>
+					<small>
+						Created by <a href="https://github.com/boshka0">boshka0</a>(aka Boksha Nastya)
+					</small>
+					<aside class="notes">
+						Hi, my name is Nastya! And I would like to introduce Dom events to you. Okay, let's get started!
+					</aside>
+				</section>
+
+				<section>
+					<img src="./img/object.png" alt="Event Object">
+					<h3>Event Object</h3>
+					<aside class="notes">
+						An event is a signal that something has happened. All DOM nodes generate such signals (but events are not limited to
+						DOM events). Whenever you interact with your browser, your browser creates an event object.
+					</aside>
+				</section>
+			
+				<section>
+					<section>
+						<h2>Event Types</h2>
+						<aside class="notes">
+							Browser works with all kinds of event types, that can create the apperance of event object, let's look at them.
+						</aside>
+					</section>
+					<section id="fragments">
+						<h2>Mouse events</h2>
+						<ul>
+							<li class="fragment fade-right">click</li>
+							<li class="fragment fade-right">contextmenu</li>
+							<li class="fragment fade-right">dbclick</li>
+							<li class="fragment fade-right">mouseenter</li>
+							<li class="fragment fade-right">mouseleave</li>
+							<li class="fragment fade-right">mouseover</li>
+							<li class="fragment fade-right">mouseout</li>
+							<li class="fragment fade-right">mousedown</li>
+							<li class="fragment fade-right">mouseup</li>
+						</ul>
+						<aside class="notes">
+							Mouse events: click, contextmenu(right click), dbclick, mouseenter(when the pointer is moved onto an element),
+							mouseleave(when the pointer is moved out of an element), mouseover(when the pointer is moved onto an element, or onto
+							one of its children),
+							mouseout(when a user moves the mouse pointer out of an element, or out of one of its children), mousedown, mouseup
+						</aside>
+					</section>
+					<section id="fragments">
+						<h2>Keyboard events</h2>
+						<ul>
+							<li class="fragment fade-right">keydown</li>
+							<li class="fragment fade-right">keypress</li>
+							<li class="fragment fade-right">keyup</li>
+						</ul>
+						<aside class="notes">
+							Keyboard events: keydown, keypress, keyup
+						</aside>
+					</section>
+					<section id="fragments">
+						<h2>Drag events</h2>
+						<ul>
+							<li class="fragment fade-right">drag</li>
+							<li class="fragment fade-right">dragstart</li>
+							<li class="fragment fade-right">dragover</li>
+							<li class="fragment fade-right">dragenter</li>
+							<li class="fragment fade-right">dragleave</li>
+							<li class="fragment fade-right">dragend</li>
+							<li class="fragment fade-right">drop</li>
+						</ul>
+						<aside class="notes">
+							Drag events: drag(when an element is being dragged), dragstart(when the user starts to drag an element), dragover(when
+							the dragged element is over the drop target),
+							dragenter (when the dragged element enters the drop target), dragleave(when the dragged element leaves the drop
+							target),
+							dragend(when the user has finished dragging an element), drop(when the dragged element is dropped on the drop target)
+						</aside>
+					</section>
+					<section id="fragments">
+						<h2>Focus events</h2>
+						<ul>
+							<li class="fragment fade-right">focus</li>
+							<li class="fragment fade-right">blur</li>
+						</ul>
+						<aside class="notes">
+							Focus events: focus(when an element gets focus), blur(when an element loses focus)
+						</aside>
+					</section>
+					<section id="fragments">
+						<h2>Touch events</h2>
+						<ul>
+							<li class="fragment fade-right">touchstart</li>
+							<li class="fragment fade-right">touchmove</li>
+							<li class="fragment fade-right">touchend</li>
+							<li class="fragment fade-right">touchcancel</li>
+						</ul>
+						<aside class="notes">
+							Touch events: touchstart(the user touches an element), touchmove(the user moves the finger across the screen),
+							touchend(the user removes the finger from an element), touchcancel(a touch is interrupted)
+						</aside>
+					</section>
+					<section>
+						<h2>Useful link</h2>
+						<a href="https://goo.gl/cBLvYy">Finger language by Anna Selezneva</a>
+						<aside class="notes">
+							Here you can find a useful link, that will lead you to Anna Selezneva's speech on WSD about "finger language",
+							that was about all kinds of interaction with sensor devices such as tap or drag, how to detect and how to handle them.
+							She added some really interesting stuff like the info about 3d Touch, so I strongly recommend you to check her 
+							speech on this subject.
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<img src="./img/handle.png" alt="Event's Handle">
+						<aside class="notes">
+							In order to convert any given event into productive work, we need to create an “event handler” and register it with an
+							element object from the DOM.
+						</aside>
+					</section>
+					<section>
+						<h2>Event Handling Models</h2>
+						<ul>
+							<li class="fragment fade-right">inline</li>
+							<li class="fragment fade-right">traditional</li>
+							<li class="fragment fade-right">W3C</li>
+						</ul>
+						<aside class="notes">
+							There are 3 types of event handlers: inline, traditional, W3C
+						</aside>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Inline Event Handling Model</h2>
+						<pre>
+							<code data-trim contenteditable>
+								<h3 on+event-type = "eventHandler()/code">Click me</h3>
+							</code>
+						</pre>
+						<aside class="notes">
+							The most simple one is inline event handling model: A handler can be set in HTML with an attribute named on+event type
+						</aside>
+					</section>
+					<section>
+						<div class="example">
+							<h3 onclick="alert('Hello World!')">Click me</h3>
+						</div>
+						<pre>
+							<code data-trim contenteditable>
+								&lt;h3 onclick = &quot;alert(&#39;Hello World!&#39;)&quot;&gt;Click me&lt;/h3&gt;
+							</code>
+						</pre>
+						<aside class="notes">
+							Just like this.
+						</aside>
+					</section>
+					<section>
+						<div class="example">
+							<script>
+								function say() {
+									alert('Hello World!');
+								}
+							</script>
+							<h3 onclick="say()">Click me</h3>
+						</div>
+						<pre>
+							<code data-trim contenteditable>
+								&lt;script&gt;
+								function sayHelloWorld() {
+									alert(&#39;Hello World!&#39;);
+								}
+								&lt;/script&gt;
+								&lt;h3 onclick = &quot;sayHelloWorld()&quot;&gt;Click me&lt;/h3&gt;
+							</code>
+						</pre>
+						<aside class="notes">
+							But of course that would be much more convinient to move code from the attribute to the script, so it won't be that
+							messy in one line.
+						</aside>
+					</section>
+					<section>
+						<div class="example">
+							<script>
+								function sayhello() {
+									alert('Hello World!');
+									event.target.removeAttribute('onclick');
+								}
+							</script>
+							<h3 onclick="sayhello()">Click me</h3>
+						</div>
+						<pre>
+							<code data-trim contenteditable>
+								&lt;script&gt;
+									function sayHelloWorld() {
+										alert(&#39;Hello World!&#39;);
+										event.target.removeAttribute(&#39;onclick&#39;);
+									}
+								&lt;/script&gt;
+								&lt;h3 onclick=&quot;sayHelloWorld()&quot;&gt;Click me&lt;/h3&gt;
+							</code>
+						</pre>
+						<aside class="notes">
+							To remove the handler you just need to remove the corresponding attribute from the DOM node.
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>'Traditional' Event Handling Model</h2>
+						<pre>
+							<code data-trim contenteditable>
+								element.on+eventType = eventHandler;
+							</code>
+						</pre>
+						<aside class="notes">
+							Traditional event handling model is more sophisticated than the previous one and it's used pretty often:
+							here we assign a handler-function to the element's property with the name on + event type
+						</aside>
+					</section>
+					<section>
+						<div class="example">
+							<h3 class="someclass">Click me</h3>
+							<script>
+								const someclass = document.querySelector('.someclass');
+								someclass.onclick = (e) => {
+									alert(e.type);
+								}
+							</script>
+						</div>
+						<pre>
+							<code data-trim contenteditable>
+								&lt;h3 class=&quot;some-class&quot;&gt;Click me&lt;/h3&gt;
+								&lt;script&gt;
+									const someClass = document.querySelector(&#39;.some-class&#39;);
+									someClass.onclick = (e) =&gt; {
+										alert(e.type);
+									}
+								&lt;/script&gt;
+							</code>
+						</pre>
+						<aside class="notes">
+							The first argument, that is assigned to the handler function is event object, we will take a look at different event 
+							properties a bit later.
+						</aside>
+					</section>
+					<section>
+						<div class="example">
+							<h3 class="anotherclass">Click me</h3>
+							<script>
+								const anotherclass = document.querySelector('.anotherclass');
+								anotherclass.onclick = (e) => {
+									alert(e.type);
+									anotherclass.onclick = null;
+								}
+							</script>
+						</div>
+						<pre>
+							<code data-trim contenteditable>
+								&lt;h3 class=&quot;another-class&quot;&gt;Click me&lt;/h3&gt;
+								&lt;script&gt;
+									const anotherClass = document.querySelector(&#39;.another-class&#39;);
+									anotherClass.onclick = (e) =&gt; {
+										alert(e.type);
+										anotherClass.onclick = null;
+									}
+								&lt;/script&gt;
+							</code>
+						</pre>
+						<aside class="notes">
+							To remove this handler from the element we should assign to the corresponding property null value.
+						</aside>
+					</section>
+					<section>
+						<h2 style="color: red;">Feel the difference</h2>
+						<pre>
+							<code data-trim contenteditable>
+								button.onclick = sayThanks;
+
+								&lt;input type=&quot;button&quot; id=&quot;button&quot; onclick=&quot;sayThanks()&quot;&gt;
+							</code>
+						</pre>
+						<pre class="fragment fade-right">
+							<code data-trim contenteditable>
+								button.onclick = function() {
+									sayThanks();
+								}
+							</code>
+						</pre>
+						<aside class="notes">
+							As you may notice when we deal with traditional method we just assign to the element's property a handler-function,
+							but we do not invoke it, but the opposite happens when we work with an inline method and assign to the attribute
+							handler-function-invocation. Why is there such a difference? This is quite simple to explain.
+							If we add brackets in the first case, than the result of the function execution will be assigned to property onclick. 
+							That is not what we really want. But in the markup we do need the brackets, cause when the browser reads the attribute, 
+							it creates a handler function with the body from its content.
+							So the last case is the same as button.onclick = function() { sayThanks(); }
+						</aside>
+					</section>	
+				</section>
+
+				<section>
+					<section>
+						<h2>W3C Event Handling Model</h2>
+						<pre>
+							<code data-trim contenteditable>
+								element.addEventListener(eventName, eventHandler, useCapture);
+							</code>
+						</pre>
+						<aside class="notes">
+							The fundamental problem of the abovementioned ways to assign handlers is that we can’t assign multiple handlers to one
+							event on the same element. This problem was solved with the apperance of addEventListener.
+							The syntax is the following addEventListener(eventType, eventHandler, useCapture): eventType (string) - that's a type of the event, that you want to handle;
+							eventHandler (function) - that's a handler-function itself; useCapture (boolean) - true for capture, false(default) for bubble, we will talk about this later on
+						</aside>
+					</section>
+					<section>
+						<div class="example">
+							<h3 id="someid">Click me</h3>
+							<script>
+								const someid = document.querySelector('#someid');
+								function sayHello() {
+									alert('Hello World');
+								}
+								someid.addEventListener('click', sayHello);
+							</script>
+						</div>
+						<pre>
+							<code data-trim contenteditable>
+								&lt;h3 id=&quot;some-id&quot;&gt;Click me&lt;/h3&gt;
+								&lt;script&gt;
+									const someId = document.querySelector(&#39;#some-id&#39;);
+									function sayHelloWorld() {
+										alert(&#39;Hello World&#39;);
+									}
+								someId.addEventListener(&#39;click&#39;, sayHelloWorld);
+								&lt;/script&gt;
+							</code>
+						</pre>
+					</section>
+					<section>
+						<div class="example">
+							<h3 id="anotherid">Click me</h3>
+							<script>
+								const anotherid = document.querySelector('#anotherid');
+								function sayHelloW() {
+									alert('Hello World');
+									anotherid.removeEventListener('click', sayHelloW);
+								}
+								anotherid.addEventListener('click', sayHelloW);
+							</script>
+						</div>
+						<pre>
+							<code data-trim contenteditable>
+								&lt;h3 id=&quot;another-id&quot;&gt;Click me&lt;/h3&gt;
+								&lt;script&gt;
+									const anotherId = document.querySelector(&#39;#another-id&#39;);
+									function sayHelloWorld() {
+										alert(&#39;Hello World&#39;);
+										anotherId.removeEventListener(&#39;click&#39;, sayHelloWorld);
+									}
+									anotherId.addEventListener(&#39;click&#39;, sayHelloWorld);
+								&lt;/script&gt;
+							</code>
+						</pre>
+						<aside class="notes">
+							When you attach an event-handler this way, it's pretty easy to remove it with a following method:
+							element.removeEventListener(<event-name>, <callback>, <use-capture>);
+						</aside>
+					</section>
+					<section>
+						<h2 style="color: red;">Common Mistake</h2>
+						<h3 id="cool-id">Click me</h3>
+						<pre>
+							<code data-trim contenteditable>
+								<h3 id="cool-id">Click me</h3>
+								<script>
+									const coolId = document.querySelector('#cool-id');
+									function sayHelloWorld() {
+										alert('Hello World');
+										coolId.removeEventListener('click', sayHelloWorld);
+									}
+									coolId.addEventListener('click', sayHelloWorld, true);
+								</script>
+							</code>
+						</pre>
+						<aside class="notes">
+							It's vital to pass just the same arguments to removeEventListener as the ones you've passed to the addEventListener, cause you may
+							come across issues like this one. To fix it we need to pass to the removeEventListener the last argument, which is true, the same as in the addEventListener.
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Event object's properties</h3>
+						<img src="./img/properties.png" alt="Event's Properties">
+						<aside class="notes">
+							Now it's time to learn more about event object itself: its properties and methods, that will describe a particular interaction.
+						</aside>
+					</section>
+					<section>
+						<ul>
+							<li class="fragment fade-right">type</li>
+							<li class="fragment fade-right">target</li>
+							<li class="fragment fade-right">currentTarget</li>
+							<li class="fragment fade-right">bubbles</li>
+							<li class="fragment fade-right">eventPhase</li>
+						</ul>
+						<aside class="notes">
+							type - type of the event;
+							target - the element the user interacted with (for example, the element the user clicked on);
+							currentTarget - the element that has the event handler for this event;
+							bubbles - return boolean if the event bubbles;
+							eventPhase - shows what is the current event phase
+						</aside>
+					</section>
+					<section>
+						<h3>Event object's methods</h3>
+						<ul>
+							<li class="fragment fade-right">composedPath()</li>
+							<li class="fragment fade-right">preventDefault()</li>
+							<li class="fragment fade-right">stopPropagation()</li>
+						</ul>
+						<aside class="notes">
+							composedPath - return an array composed of elements, that create a path to the element;
+							preventDefault - prevents the default behavior, that the browser has for this event type;
+							stopPropagation - this method stops either capturing or bubbling
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Capturing & bubbling</h2>
+						<img src="./img/how.png" alt="how?">
+						<aside class="notes">
+							Okay, finally it's high time to learn about such confusing terms as bubbling and capturing.
+							When our event object meets an element with an event handler, the handler will be triggered,
+							and the function that it contains will execute. But how do our event object meets event handlers?
+							The short answer is that the event object must find and “fire” on all of the elements that could potentially have
+							listeners registered to them for that event. Now we will learn how the browser achieves this.
+						</aside>
+					</section>
+					<section>
+						<img src="./img/journey.png" alt="journey">
+						<aside class="notes">
+							One important property of an event object is “target”. The event target is the inner most nested element that was
+							targeted by the event (e.g., the element that was clicked). The event object is about to go on a journey and 
+							the event target is its destination.
+						</aside>
+					</section>
+					<section>
+						<h4>Capture phase</h4>
+						<img src="./img/capture.png" alt="capture phase">
+						<aside class="notes">
+							In most cases, the “event path” starts at Window. From there, the event object “fires” on each ancestor element of the
+							target as it moves toward the target. This is called the “capture phase”.
+						</aside>
+					</section>
+					<section>
+						<h4>Target phase</h4>
+						<img src="./img/delivery.png" alt="find target">
+						<aside class="notes">
+							Once the event reaches the destination it finally gets to fire on the target element, just in case the target itself 
+							has an event handler registered to it. This is called the “target phase.”
+						</aside>
+					</section>
+					<section>
+						<img src="./img/leave.png" alt="leaving target">
+						<aside class="notes">
+							Now, our event object must make the return trip.
+						</aside>
+					</section>
+					<section>
+						<h4>Bubble phase</h4>
+						<img src="./img/bubbling.png" alt="bubbling">
+						<aside class="notes">
+							The return trip back up to Window is called the “bubble phase.”
+						</aside>
+					</section>
+					<section>
+						<h4>Simple rule to remember:<br><span style="color:blue;">capture down, bubble up!</span></h4>
+						<img src="./img/rule.png" alt="rule">
+						<aside class="notes">
+							Just remember one simple rule: capture down, bubble up. That's it.
+						</aside>
+					</section>
+					<section>
+						<h2>event propagation path = </h2>
+						<h3><span style="color:goldenrod;">Capture phase</span><br>+<br><span style="color:rosybrown;">Target phase</span><br>+<br><span style="color:palevioletred;">Bubble phase</span></h3>
+						<aside class="notes">
+							This round trip through all three phases is called the “event propagation path”. The reason there are three phases 
+							(capture, target, and bubble) is partially due to historical implementation and partially due to maximizing flexibility. 
+							In the past, different browsers chose to handle events in only one direction. Internet Explorer chose to only bubble, 
+							while most other browsers chose to only capture. These days, modern browsers default to handle most events on the bubble phase 
+							but allow developers the option of capturing instead. This flexibility allows developers greater control when handlers are triggered. But we can choose the phase only with addEventListener, as you've already
+							seen, other event handling models work only with bubbling. 
+						</aside>
+					</section>
+					<section>
+						<h2>Visualization</h2>
+						<a href="https://jsbin.com/exezex/4/edit?html,js,output">Example</a>
+						<aside class="notes">
+							Here I've attached a link to the visual representation of bubbling and capturing.
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<h2>Event Delegation</h2>
+					<a href="https://codepen.io/boshka/pen/KrYdLo">Example</a>
+					<aside class="notes">
+						Everything is pretty cool with this concept, but... Why do we even need this?
+						The answer is event delegation! That's a cool concept based on capturing and bubbling that lets you create elegant solutions
+						without overdose code-writing. Here I've created a simple example of event-delegation.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Thank you!!!</h2>
+					<img src="./img/bye.png" alt="bye-bye">
+				</section>
+			</div>
+		
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="plugin/highlight.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: 'default',
+				dependencies: [
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
